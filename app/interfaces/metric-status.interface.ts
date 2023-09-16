@@ -1,0 +1,1 @@
+export type IMetricStatus = 'green' | 'yellow' | 'red'
