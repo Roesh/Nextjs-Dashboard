@@ -55,8 +55,14 @@ export default function Home() {
                 </Header>
             }
         >
-            <RadialMetricsTable />
-            <ProjectMetricsTable />
+            <div>
+                <RadialMetricsTable />
+            </div>
+            <div style={{ marginTop: '3rem' }}>
+                <h2>Metrics Breakdown</h2>
+                <ProjectMetricsTable />
+            </div>
+            {/* TODO: Polar grid to break down projects by program, sectors indicate the fraction that is red vs yellow vs green https://recharts.org/en-US/api/PolarGrid */}
         </AppShell>
     );
 

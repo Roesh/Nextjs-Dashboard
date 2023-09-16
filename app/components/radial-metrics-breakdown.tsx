@@ -1,7 +1,7 @@
 "use client"
 import { Cell, LabelList, Pie, PieChart } from "recharts";
 import { IProjectStatusUpdate } from "../interfaces/project-status-update.interface";
-import { colorToHexCodeMap, greenHexCode, redHexCode, yellowHexCode } from "../constants";
+import { colorToHexCodeMap, greenHexCode, redHexCode, yellowHexCode, yellowHexCodeText } from "../constants";
 import { useReducer } from "react";
 import { IMetricStatus } from "../interfaces/metric-status.interface";
 
@@ -41,14 +41,12 @@ export default function RadialMetricsTable() {
     })
 
     return (
-        <div style={{ 'display': 'flex' }}>
+        <div style={{ 'display': 'flex', fontSize: '3rem' }}>
             <div>
-                {initialData.green > 0 && <h2>{initialData.green} <span style={{ color: greenHexCode }}>Healthy</span></h2>}
-                {initialData.yellow > 0 && <h2>{initialData.yellow} <span style={{ color: yellowHexCodeText }}>Need attention</span></h2>}
-                {initialData.red > 0 && <h2>{initialData.red} <span style={{ color: redHexCode }}>Off track</span></h2>}
+                {initialData.green > 0 && <div><span style={{ color: greenHexCode}}>{initialData.green}</span> <span style={{ color: greenHexCode, fontSize: '1.8rem' }}>Healthy</span></div>}
             </div>
-            <PieChart width={250} height={250}>
-                <Pie data={displayData} dataKey="value" cx="50%" cy="50%" outerRadius={110}>
+            <PieChart style={{marginInline: '20px'}} width={250} height={250}>
+                <Pie data={displayData} dataKey="value" cx="50%" cy="50%" outerRadius={110} startAngle={45} endAngle={405}>
                     {/* <LabelList valueAccessor={renderCustomizedLabel} position={'outside'}/> */}
                     {
                         displayData.map((entry, index) => (
@@ -56,6 +54,10 @@ export default function RadialMetricsTable() {
                         ))
                     }</Pie>
             </PieChart>
+            <div>
+                {initialData.yellow > 0 && <div><span style={{ color: yellowHexCodeText}}>{initialData.yellow}</span> <span style={{ color: yellowHexCodeText, fontSize: '1.8rem' }}>Need attention</span></div>}
+                {initialData.red > 0 && <div><span style={{ color: redHexCode}}>{initialData.red}</span> <span style={{ color: redHexCode, fontSize: '1.8rem' }}>Off track</span></div>}
+            </div>
         </div>
     )
 }
