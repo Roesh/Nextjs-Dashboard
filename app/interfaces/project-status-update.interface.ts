@@ -4,6 +4,7 @@ import { IMetricStatus } from "./metric-status.interface";
 export interface IProjectStatusUpdate {
     projectId: string,
     projectName: string,
+    programName: string,
 
     agileMetricStatus: IMetricStatus,
     staffingMetricStatus: IMetricStatus,

@@ -1,10 +1,10 @@
 import { IMetricStatus } from "./interfaces/metric-status.interface"
 
 // Colors:
-export const redHexCode = '#D2222D'
-export const yellowHexCode = '#FFBF00'
-export const yellowHexCodeText = '#8E6C06'
-export const greenHexCode = '#007000'
+export const redHexCode = '#D75553'
+export const yellowHexCode = '#F68D4B'
+export const yellowHexCodeText = '#F68D4B'
+export const greenHexCode = '#5EBC58'
 
 export const colorToHexCodeMap: {[key in IMetricStatus]: string}= {
     'green': greenHexCode,

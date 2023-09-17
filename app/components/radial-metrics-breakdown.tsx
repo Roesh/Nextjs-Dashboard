@@ -19,10 +19,10 @@ const renderCustomizedLabel = (props: any) => {
 
 export default function RadialMetricsTable() {
     const projectStatuses: IProjectStatusUpdate[] = [
-        { projectId: '1', projectName: 'FEMA CIS', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '2', projectName: 'WFDSS', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '3', projectName: 'PSAS', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'yellow', escalationMetricStatus: 'green', overallStatus: 'green', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '3', projectName: 'SUDS', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'red', escalationMetricStatus: 'red', overallStatus: 'red', dateOfLastMetricStatusUpdate: new Date() },
+        { projectId: '1', projectName: 'FEMA CIS', programName: 'FEMA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
+        { projectId: '2', projectName: 'WFDSS', programName: 'Forest Service', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
+        { projectId: '3', projectName: 'PSAS', programName: 'USDA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'yellow', escalationMetricStatus: 'green', overallStatus: 'green', dateOfLastMetricStatusUpdate: new Date() },
+        { projectId: '4', projectName: 'SUDS', programName: 'Forest Service', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'red', escalationMetricStatus: 'red', overallStatus: 'red', dateOfLastMetricStatusUpdate: new Date() },
     ];
 
     // const displayData: any[] = []
@@ -46,7 +46,7 @@ export default function RadialMetricsTable() {
                 {initialData.green > 0 && <div><span style={{ color: greenHexCode}}>{initialData.green}</span> <span style={{ color: greenHexCode, fontSize: '1.8rem' }}>Healthy</span></div>}
             </div>
             <PieChart style={{marginInline: '20px'}} width={250} height={250}>
-                <Pie data={displayData} dataKey="value" cx="50%" cy="50%" outerRadius={110} startAngle={45} endAngle={405}>
+                <Pie data={displayData} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={110} startAngle={45} endAngle={405}>
                     {/* <LabelList valueAccessor={renderCustomizedLabel} position={'outside'}/> */}
                     {
                         displayData.map((entry, index) => (
