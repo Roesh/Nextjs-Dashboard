@@ -40,7 +40,6 @@ const renderCustomizedLabel = (props: any) => {
     midAngle,
   } = props;
   // const radius = 10;
-  console.log(props.payload, "pps");
   if (props.payload?.value === 0) {
     return "";
   }
@@ -48,7 +47,6 @@ const renderCustomizedLabel = (props: any) => {
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  console.log(value, "ttf");
   return (
     <text
       x={x}
@@ -164,7 +162,7 @@ export default function RadialMetricsTable() {
           </div>
         )}
       </Box>
-      <PieChart style={{ marginInline: "20px" }} width={500} height={350}>
+      <PieChart style={{ marginInline: "20px" }} width={350} height={350}>
         <Tooltip />
         <Pie
           data={displayData}

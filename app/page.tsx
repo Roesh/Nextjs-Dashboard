@@ -1,5 +1,5 @@
 "use client"
-import { AppShell, Aside, Burger, Footer, Header, MediaQuery, Navbar, Table, useMantineTheme, Text } from '@mantine/core';
+import { AppShell, Aside, Burger, Footer, Header, MediaQuery, Navbar, Table, useMantineTheme, Text, Box } from '@mantine/core';
 import { IProjectStatusUpdate } from './interfaces/project-status-update.interface';
 import ProjectMetricsTable from './components/project-metrics-table';
 import { useState } from 'react';
@@ -71,14 +71,14 @@ export default function Home() {
             >
                 <h1>{dashboardName}</h1>
                 <div style={{ display: 'flex' }}>
-                    <div>
-                        <h2>Projects by overall health</h2>
-                        <RadialMetricsTable />
-                    </div>
-                    <div style={{ marginLeft: 'auto' }}>
+                    <Box >
                         <h2>Program health breakdown</h2>
                         <BarGraphBreakdown />
-                    </div>
+                    </Box>
+                    <Box mx='auto'>
+                        <h2>Projects by overall health</h2>
+                        <RadialMetricsTable />
+                    </Box>
                 </div>
                 <div style={{ marginTop: '3rem' }}>
                     <h2>Metrics Breakdown</h2>
