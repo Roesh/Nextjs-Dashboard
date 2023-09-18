@@ -23,7 +23,7 @@ import {
   yellowHexCodeText,
 } from "../constants";
 import { useReducer } from "react";
-import { IMetricStatus } from "../interfaces/metric-status.interface";
+import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
 import { Box } from "@mantine/core";
 
 const CustomizedLabel = (props: any) => {
@@ -85,7 +85,7 @@ export default function BarGraphBreakdown() {
 
   // const displayData: any[] = []
   const statusBreakdown: {
-    [key in string]: { [key in IMetricStatus]: number };
+    [key in string]: { [key in IMetricStatusLiteral]: number };
   } = projectStatuses.reduce((prev, current) => {
     if (current.programName !== undefined && current.programName?.length > 0) {
       //@ts-ignore

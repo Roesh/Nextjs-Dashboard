@@ -3,7 +3,7 @@ import {
   IProjectStatusUpdate,
   ISubMetricsLiteral,
 } from "../interfaces/project-status-update.interface";
-import { IMetricStatus } from "../interfaces/metric-status.interface";
+import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
 import { metricToSortLevelMap } from "../constants";
 
 export const healthSortingFunction: MRT_SortingFn<IProjectStatusUpdate> = (

@@ -1,4 +1,4 @@
-import { IMetricStatus } from "./metric-status.interface";
+import { IMetricStatusLiteral } from "./metric-status.interface";
 
 /** Combines multiple tables if needed. Can use Nosql to keep data duplicated */
 export interface IProjectStatusUpdate {
@@ -6,13 +6,15 @@ export interface IProjectStatusUpdate {
   projectName: string;
   programName: string;
 
-  agileMetricStatus: IMetricStatus;
-  staffingMetricStatus: IMetricStatus;
-  modernizationMetricStatus: IMetricStatus;
-  escalationMetricStatus: IMetricStatus;
-  overallStatus: IMetricStatus;
+  agileMetricStatus: IMetricStatusLiteral;
+  staffingMetricStatus: IMetricStatusLiteral;
+  modernizationMetricStatus: IMetricStatusLiteral;
+  escalationMetricStatus: IMetricStatusLiteral;
+  overallStatus: IMetricStatusLiteral;
 
   dateOfLastMetricStatusUpdate: Date;
+
+  projectUpdateNotes?: string
 }
 
 export type ISubMetricsLiteral = keyof Pick<

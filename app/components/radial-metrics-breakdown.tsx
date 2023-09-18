@@ -23,7 +23,7 @@ import {
   yellowHexCodeText,
 } from "../constants";
 import { useReducer } from "react";
-import { IMetricStatus } from "../interfaces/metric-status.interface";
+import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
 import { Box } from "@mantine/core";
 
 const RADIAN = Math.PI / 180;
@@ -64,13 +64,13 @@ export default function RadialMetricsTable() {
   const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
 
   // const displayData: any[] = []
-  const initialData: { [key in IMetricStatus]: number } = {
+  const initialData: { [key in IMetricStatusLiteral]: number } = {
     Green: 0,
     Yellow: 0,
     Red: 0,
   };
   const initialSubMetricsData: {
-    [key in ISubMetricsLiteral]: { [key in IMetricStatus]: number };
+    [key in ISubMetricsLiteral]: { [key in IMetricStatusLiteral]: number };
   } = {
     escalationMetricStatus: { ...initialData },
     modernizationMetricStatus: { ...initialData },
@@ -180,7 +180,7 @@ export default function RadialMetricsTable() {
             <Cell
               key={`cell-${index}`}
               fill={
-                colorToHexCodeMap[(entry.name as IMetricStatus) ?? "Yellow"]
+                colorToHexCodeMap[(entry.name as IMetricStatusLiteral) ?? "Yellow"]
               }
             />
           ))}
@@ -224,7 +224,7 @@ export default function RadialMetricsTable() {
                     key={`cell-${index}`}
                     fill={
                       colorToHexCodeMap[
-                        (entry.name as IMetricStatus) ?? "Yellow"
+                        (entry.name as IMetricStatusLiteral) ?? "Yellow"
                       ]
                     }
                   />

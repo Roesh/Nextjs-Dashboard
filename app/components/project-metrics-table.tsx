@@ -10,7 +10,7 @@ import {
   MantineReactTable,
   useMantineReactTable,
 } from "mantine-react-table";
-import { IMetricStatus } from "../interfaces/metric-status.interface";
+import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { IconDownload } from "@tabler/icons-react";
@@ -33,7 +33,7 @@ const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
           height="16"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
-          fill={colorToHexCodeMap[cell.getValue<string>() as IMetricStatus]}
+          fill={colorToHexCodeMap[cell.getValue<string>() as IMetricStatusLiteral]}
         >
           <circle cx="8" cy="8" r="8" />
         </svg>
@@ -67,7 +67,7 @@ export default function ProjectMetricsTable() {
                 viewBox="0 0 16 16"
                 xmlns="http://www.w3.org/2000/svg"
                 fill={
-                  colorToHexCodeMap[cell.getValue<string>() as IMetricStatus]
+                  colorToHexCodeMap[cell.getValue<string>() as IMetricStatusLiteral]
                 }
               >
                 <circle cx="8" cy="8" r="8" />
