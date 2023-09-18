@@ -1,36 +1,178 @@
-import { Table } from "@mantine/core";
+"use client"
+import { Box, Button, Table } from "@mantine/core";
 import { IProjectStatusUpdate } from "../interfaces/project-status-update.interface";
+import { colorToHexCodeMap, testProjectUpdatesArray } from "../constants";
+import { useMemo } from "react";
+import { MRT_Cell, MRT_ColumnDef, MRT_Row, MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import { IMetricStatus } from "../interfaces/metric-status.interface";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { IconDownload } from "@tabler/icons-react";
+
+const elements = testProjectUpdatesArray;
+
+const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
+    maxSize: 50,
+    enableColumnActions: false,
+    enableColumnDragging: false,
+    filterVariant: 'multi-select',
+    mantineFilterMultiSelectProps: { data: ['Green', 'Yellow', 'Red'] },
+    Cell: ({ cell }: { cell: MRT_Cell<IProjectStatusUpdate> }) => {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill={colorToHexCodeMap[cell.getValue<string>() as IMetricStatus]} >
+                    <circle cx="8" cy="8" r="8" />
+                </svg >
+            </div>
+        )
+    }
+}
 
 export default function ProjectMetricsTable() {
-    const elements: IProjectStatusUpdate[] = [
-        { projectId: '1', projectName: 'FEMA CIS', programName: 'FEMA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '2', projectName: 'WFDSS', programName: 'Forest Service', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '3', projectName: 'PSAS', programName: 'USDA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'yellow', escalationMetricStatus: 'green', overallStatus: 'green', dateOfLastMetricStatusUpdate: new Date() },
-    ];
+    const data = useMemo(() => elements, [])
 
-    const rows = elements.map((element) => (
-        <tr key={element.projectId}>
-            <td>{element.projectName}</td>
-            {/* Create widget to display colored circle based on metric in addition to status, keep Section 508 in mind and leave aria label on icon rendered */}
-            <td>{element.agileMetricStatus}</td>
-            <td>{element.staffingMetricStatus}</td>
-            <td>{element.modernizationMetricStatus}</td>
-            <td>{element.escalationMetricStatus}</td>
-        </tr>
-    ));
+    const columns = useMemo<MRT_ColumnDef<IProjectStatusUpdate>[]>(
+        () => [
+            {
+                accessorKey: 'projectId',
+                header: 'Id',
+            },
+            {
+                accessorKey: 'projectName',
+                header: 'Project',
+                filterVariant: 'autocomplete'
+            },
+            {
+                ...healthColumnOptions,
+                Cell: ({ cell }: { cell: MRT_Cell<IProjectStatusUpdate> }) => {
+                    return (
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <svg width="24" height="24" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill={colorToHexCodeMap[cell.getValue<string>() as IMetricStatus]} >
+                                <circle cx="8" cy="8" r="8" />
+                            </svg >
+                        </div>
+                    )
+                },
+                accessorKey: 'overallStatus',
+                header: 'Health',
+            },
+            {
+                ...healthColumnOptions,
+                accessorKey: 'agileMetricStatus',
+                header: 'Agile',
+            },
+            {
+                ...healthColumnOptions,
+                accessorKey: 'staffingMetricStatus',
+                header: 'Staff',
+            },
+            {
+                ...healthColumnOptions,
+                accessorKey: 'modernizationMetricStatus',
+                header: 'Tech',
+            },
+            {
+                ...healthColumnOptions,
+                accessorKey: 'escalationMetricStatus',
+                header: 'Risk',
+            },
+            {
+                accessorKey: 'dateOfLastMetricStatusUpdate',
+                header: 'Last Updated',
+                enableSorting: false,
+                enableColumnActions: false,
+                Cell: ({ cell }) => (
+                    cell.getValue<Date>().toDateString()
+                ),
+            },
+            {
+                accessorKey: 'programName',
+                header: 'Program',
+            },
+        ],
+        [],
+    );
+
+    const table = useMantineReactTable({
+        columns,
+        data,
+        initialState: {
+            columnVisibility: {
+                'projectId': false
+            }
+        },
+        enableRowSelection: true, //enable some features
+        enableGlobalFilter: false, //turn off a feature
+        renderTopToolbarCustomActions: ({ table }) => (
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '16px',
+                    padding: '8px',
+                    flexWrap: 'wrap',
+                }}
+            >
+                <Button
+                    disabled={table.getPrePaginationRowModel().rows.length === 0}
+                    //export all rows, including from the next page, (still respects filtering and sorting)
+                    onClick={() =>
+                        handleExportRows(table.getPrePaginationRowModel().rows)
+                    }
+                    leftIcon={<IconDownload />}
+                    variant="filled"
+                >
+                    Export All Rows
+                </Button>
+                <Button
+                    disabled={
+                        !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+                    }
+                    //only export selected rows
+                    onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
+                    leftIcon={<IconDownload />}
+                    variant="filled"
+                >
+                    Export Selected Rows
+                </Button>
+            </Box>
+        ),
+    });
+
+    const handleExportRows = (rows: MRT_Row<IProjectStatusUpdate>[]) => {
+
+        const doc = new jsPDF();
+
+        let pdfRowData
+
+        const tableData = rows.map((row) => {
+            pdfRowData = { ...row.original }
+            //@ts-ignore
+            delete pdfRowData.projectId
+            //@ts-ignore
+            pdfRowData.dateOfLastMetricStatusUpdate = pdfRowData.dateOfLastMetricStatusUpdate.toDateString()
+            return Object.values(pdfRowData)
+        });
+
+        const newHeader = [...columns]
+        newHeader.shift()
+        const tableHeaders = newHeader.map((c) => c.header);
+
+
+        autoTable(doc, {
+            head: [tableHeaders],
+            //@ts-ignore
+            body: tableData,
+        });
+
+
+        doc.save('exec-dashboard-metrics.pdf');
+
+    };
 
     return (
-        <Table>
-            <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Agile Metrics</th>
-                    <th>Staffing</th>
-                    <th>Modernization</th>
-                    <th>Risks</th>
-                </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </Table>
+        // <MantineReactTable table={table} initialState={{ columnVisibility: { projectId: false } }} />
+        <div style={{ marginBottom: '5rem' }}>
+            <MantineReactTable table={table} />
+        </div>
     );
 }

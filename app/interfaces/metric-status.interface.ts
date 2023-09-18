@@ -1,1 +1,1 @@
-export type IMetricStatus = 'green' | 'yellow' | 'red'
+export type IMetricStatus = 'Green' | 'Yellow' | 'Red'

@@ -16,12 +16,14 @@ function SafeHydrate({ children }: any) {
 
 /**
  * Escalation metric status:
- *  Green if no issues reported.
- * @returns Escala
+ *  Green if no issues reported. * 
  */
+/** TODO: Change to use router and sync to url */
 export default function Home() {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
+    const [dashboardName, setDashboardName] = useState('EAS Projects Dashboard')
+
     return (
         <SafeHydrate>
             <AppShell
@@ -34,7 +36,7 @@ export default function Home() {
                 asideOffsetBreakpoint="sm"
                 navbar={
                     <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-                        <Text>Application navbar</Text>
+                        <Text>EAS Projects Dashboard</Text>
                     </Navbar>
                 }
                 // aside={
@@ -52,6 +54,8 @@ export default function Home() {
                 header={
                     <Header height={{ base: 50, md: 70 }} p="md">
                         <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                            <img style={{height: '38px'}} src="/usda-symbol.svg" alt="USDA Logo"/>
+                            <Text ml={10} sx={{fontSize: '1.5rem', }}>EAS Project Monitoring System</Text>
                             <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
                                 <Burger
                                     opened={opened}
@@ -65,9 +69,16 @@ export default function Home() {
                     </Header>
                 }
             >
+                <h1>{dashboardName}</h1>
                 <div style={{ display: 'flex' }}>
-                    <RadialMetricsTable />
-                    <BarGraphBreakdown />
+                    <div>
+                        <h2>Projects by overall health</h2>
+                        <RadialMetricsTable />
+                    </div>
+                    <div style={{ marginLeft: 'auto' }}>
+                        <h2>Program health breakdown</h2>
+                        <BarGraphBreakdown />
+                    </div>
                 </div>
                 <div style={{ marginTop: '3rem' }}>
                     <h2>Metrics Breakdown</h2>

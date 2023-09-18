@@ -1,36 +1,31 @@
 "use client"
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, Legend, Pie, PieChart, Tooltip, XAxis, YAxis } from "recharts";
 import { IProjectStatusUpdate } from "../interfaces/project-status-update.interface";
-import { colorToHexCodeMap, greenHexCode, redHexCode, yellowHexCode, yellowHexCodeText } from "../constants";
+import { colorToHexCodeMap, greenHexCode, redHexCode, testProjectUpdatesArray, yellowHexCode, yellowHexCodeText } from "../constants";
 import { useReducer } from "react";
 import { IMetricStatus } from "../interfaces/metric-status.interface";
 
 
 export default function BarGraphBreakdown() {
-    const projectStatuses: IProjectStatusUpdate[] = [
-        { projectId: '1', projectName: 'FEMA CIS', programName: 'FEMA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '2', projectName: 'WFDSS', programName: 'Forest Service', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'green', escalationMetricStatus: 'yellow', overallStatus: 'yellow', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '3', projectName: 'PSAS', programName: 'USDA', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'yellow', escalationMetricStatus: 'green', overallStatus: 'green', dateOfLastMetricStatusUpdate: new Date() },
-        { projectId: '4', projectName: 'SUDS', programName: 'Forest Service', agileMetricStatus: 'green', staffingMetricStatus: 'green', modernizationMetricStatus: 'red', escalationMetricStatus: 'red', overallStatus: 'red', dateOfLastMetricStatusUpdate: new Date() },
-    ];
+    const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
 
 
-    const emptyObject:any = {}
+    const emptyObject: any = {}
     let overAll
     // const displayData: any[] = []
-    const statusBreakdown: { [key in string]: {[key in IMetricStatus]: number} } = projectStatuses.reduce((prev, current) => {
-        if(current.programName !== undefined && current.programName?.length > 0){
+    const statusBreakdown: { [key in string]: { [key in IMetricStatus]: number } } = projectStatuses.reduce((prev, current) => {
+        if (current.programName !== undefined && current.programName?.length > 0) {
             //@ts-ignore
-            if(prev[current.programName] === undefined){
+            if (prev[current.programName] === undefined) {
                 prev[current.programName] = {}
             }
             overAll = prev[current.programName][current.overallStatus]
-            if(overAll !== undefined){
+            if (overAll !== undefined) {
                 overAll++
-            }else {
+            } else {
                 prev[current.programName][current.overallStatus] = 1
             }
-        }else {
+        } else {
             prev.other = {}
         }
         return prev
@@ -45,21 +40,21 @@ export default function BarGraphBreakdown() {
     const displayData = Object.entries(statusBreakdown).map((entry) => {
         return ({
             name: entry[0],
-            green: entry[1].green,
-            yellow: entry[1].yellow,
-            red: entry[1].red,
+            green: entry[1].Green,
+            yellow: entry[1].Yellow,
+            red: entry[1].Red,
         })
     })
     console.log(displayData, "init d")
 
     return (
+        // https://github.com/recharts/recharts/issues/1618
         <div>
-            <BarChart width={750} height={250} layout={'horizontal'} data={displayData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <YAxis />
-                <XAxis  dataKey="name"/>
-                <Tooltip />
-                <Legend />
+            <BarChart width={800} height={250} layout={'horizontal'} data={displayData} {...{
+                overflow: 'visible'
+            }}>
+                <YAxis type="number" hide/>
+                <XAxis  type="category" dataKey="name" angle={-45} textAnchor="end" />
                 <Bar dataKey="green" stackId="a" fill={greenHexCode} />
                 <Bar dataKey="yellow" stackId="a" fill={yellowHexCode} />
                 <Bar dataKey="red" stackId="a" fill={redHexCode} />
