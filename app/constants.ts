@@ -534,17 +534,14 @@ const defaultCounts: IStatusCounts = {
 
 export const projectStatusOverTime: IProjectStatusOverTime[] =
   testProjectTimelineRaw.map((rawData) => ({
-    dateOfUpdate: rawData.updateDate,
+    dateOfUpdate: +rawData.updateDate,
     ...rawData.statusUpdates.reduce<IStatusCounts>(
       (prev, current) => {
-        prev[current.agileMetricStatus]++
-        prev[current.escalationMetricStatus]++
-        prev[current.modernizationMetricStatus]++
-        prev[current.staffingMetricStatus]++
+        prev[current.overallStatus]++
         prev.total++
 
         return prev
       },
-      defaultCounts
+      {...defaultCounts}
     ),
   }));

@@ -79,7 +79,7 @@ const CustomizedLabel = (props: any) => {
 export default function BarGraphBreakdown() {
   const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
 
-  const emptyObject: any = { FEMA: { Green: 12 } };
+  const emptyObject: any = {};
 
   let overAll;
 

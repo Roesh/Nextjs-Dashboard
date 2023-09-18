@@ -158,15 +158,26 @@ export default function ProjectMetricsTable() {
     ),
   });
 
+  /** This needs a refactor before going into the non-mockup stage
+   * Right now the order of rendering is determined by Object.values, but we may need to 
+   * specify it manually because the keys aren't always guarnated. One of them is optional
+   */
   const handleExportRows = (rows: MRT_Row<IProjectStatusUpdate>[]) => {
     const doc = new jsPDF();
 
     let pdfRowData;
-
+    let program;
     const tableData = rows.map((row) => {
       pdfRowData = { ...row.original };
       //@ts-ignore
       delete pdfRowData.projectId;
+      
+      program = pdfRowData.programName
+      //@ts-ignore
+      delete pdfRowData.programName;
+      delete pdfRowData.projectUpdateNotes;
+      pdfRowData.programName = program
+
       //@ts-ignore
       pdfRowData.dateOfLastMetricStatusUpdate =
         pdfRowData.dateOfLastMetricStatusUpdate.toDateString();

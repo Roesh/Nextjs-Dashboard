@@ -80,7 +80,7 @@ export default function Home() {
             width={{ sm: 200, lg: 300 }}
           >
             <Text>Dashboards</Text>
-            <Button variant="outline" color="green">
+            <Button variant="outline" color="green" onClick={() => setCurrentPage("EAS Projects Dashboard")}>
               EAS Projects Dashboard
             </Button>
             <Text mt="lg">Timelines</Text>

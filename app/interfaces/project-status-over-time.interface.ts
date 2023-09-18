@@ -4,5 +4,5 @@ import { IStatusCounts } from "./status-counts.interface";
 // type projectMetricKeysType = { [key in IStatusCounts]: number };
 
 export interface IProjectStatusOverTime extends IStatusCounts {
-  dateOfUpdate: Date;
+  dateOfUpdate: number; //Timestamp of date
 }
