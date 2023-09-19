@@ -27,10 +27,19 @@ import {
   grayHexCode,
   grayTextHexCode,
   greenHexCode,
-  testProjectUpdatesArray,
+  weeklyUpdates,
 } from "./constants";
 import { useDisclosure } from "@mantine/hooks";
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { data } from "autoprefixer";
 import { HealthOverTimeGraph } from "./components/health-over-time-graph";
 
@@ -54,10 +63,16 @@ export default function Home() {
   const [opened, setOpened] = useState(false);
   const [dashboardName, setDashboardName] = useState("EAS Projects Dashboard");
 
-  const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
+  const currentWeeklyUpdate = weeklyUpdates[0];
+  const projectStatuses: IProjectStatusUpdate[] =
+    currentWeeklyUpdate.projectUpdates;
+  const kudos = currentWeeklyUpdate.kudos;
+
   const [statusUpdatesOpened, { toggle }] = useDisclosure(false);
 
-  const [currentPage, setCurrentPage] = useState<pages>("EAS Projects Dashboard");
+  const [currentPage, setCurrentPage] = useState<pages>(
+    "EAS Projects Dashboard"
+  );
 
   return (
     <SafeHydrate>
@@ -80,11 +95,19 @@ export default function Home() {
             width={{ sm: 200, lg: 300 }}
           >
             <Text>Dashboards</Text>
-            <Button variant="outline" color="green" onClick={() => setCurrentPage("EAS Projects Dashboard")}>
+            <Button
+              variant="outline"
+              color="green"
+              onClick={() => setCurrentPage("EAS Projects Dashboard")}
+            >
               EAS Projects Dashboard
             </Button>
             <Text mt="lg">Timelines</Text>
-            <Button variant="outline" color="green" onClick={() => setCurrentPage("Project Health Timeline")}>
+            <Button
+              variant="outline"
+              color="green"
+              onClick={() => setCurrentPage("Project Health Timeline")}
+            >
               Projects Timelines
             </Button>
           </Navbar>
@@ -134,8 +157,8 @@ export default function Home() {
         {currentPage === "EAS Projects Dashboard" && (
           <>
             <h1>{dashboardName}</h1>
-            <div style={{ display: "flex" }}>
-              <Box>
+            <Grid style={{ display: "flex" }}>
+              <Grid.Col span={12} md={6} style={{paddingBottom: '30px'}}>
                 <Box sx={{ display: "flex" }}>
                   <h2>Program health breakdown</h2>
                   <DateInput
@@ -146,12 +169,14 @@ export default function Home() {
                   />
                 </Box>
                 <BarGraphBreakdown />
-              </Box>
-              <Box mx="auto">
-                <h2>Projects by overall health</h2>
-                <RadialMetricsTable />
-              </Box>
-            </div>
+              </Grid.Col>
+              <Grid.Col span={12} md={6} style={{ display: "flex" }}>
+                <Box mx="auto">
+                  <h2>Projects by overall health</h2>
+                  <RadialMetricsTable />
+                </Box>
+              </Grid.Col>
+            </Grid>
             <div style={{ marginTop: "1rem" }}>
               <Button onClick={toggle}>View Weekly Update</Button>
               <Collapse in={statusUpdatesOpened}>
@@ -200,9 +225,7 @@ export default function Home() {
             </div>
           </>
         )}
-        {currentPage === "Project Health Timeline" && (
-          <HealthOverTimeGraph />
-        )}
+        {currentPage === "Project Health Timeline" && <HealthOverTimeGraph />}
       </AppShell>
     </SafeHydrate>
   );

@@ -18,7 +18,7 @@ import {
   greenHexCode,
   metricKeyToDisplayNameMap,
   redHexCode,
-  testProjectUpdatesArray,
+  weeklyUpdates,
   yellowHexCode,
   yellowHexCodeText,
 } from "../constants";
@@ -61,7 +61,7 @@ const renderCustomizedLabel = (props: any) => {
 };
 
 export default function RadialMetricsTable() {
-  const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
+  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdates[0].projectUpdates;
 
   // const displayData: any[] = []
   const initialData: { [key in IMetricStatusLiteral]: number } = {

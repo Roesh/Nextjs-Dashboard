@@ -8,6 +8,7 @@ import {
   Legend,
   Pie,
   PieChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
@@ -18,7 +19,7 @@ import {
   grayTextHexCode,
   greenHexCode,
   redHexCode,
-  testProjectUpdatesArray,
+  weeklyUpdates,
   yellowHexCode,
   yellowHexCodeText,
 } from "../constants";
@@ -77,7 +78,7 @@ const CustomizedLabel = (props: any) => {
 };
 
 export default function BarGraphBreakdown() {
-  const projectStatuses: IProjectStatusUpdate[] = testProjectUpdatesArray;
+  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdates[0].projectUpdates;
 
   const emptyObject: any = {};
 
@@ -124,10 +125,8 @@ export default function BarGraphBreakdown() {
 
   return (
     // https://github.com/recharts/recharts/issues/1618
-    <Box ml="md">
+    <ResponsiveContainer width="100%"  height={250}>
       <BarChart
-        width={700}
-        height={250}
         layout={"horizontal"}
         data={displayData}
         {...{
@@ -155,6 +154,6 @@ export default function BarGraphBreakdown() {
           />
         </Bar>
       </BarChart>
-    </Box>
+    </ResponsiveContainer>
   );
 }

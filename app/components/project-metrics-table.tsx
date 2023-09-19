@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, Table } from "@mantine/core";
 import { IProjectStatusUpdate } from "../interfaces/project-status-update.interface";
-import { colorToHexCodeMap, testProjectUpdatesArray } from "../constants";
+import { colorToHexCodeMap, weeklyUpdates } from "../constants";
 import { useMemo } from "react";
 import {
   MRT_Cell,
@@ -16,7 +16,7 @@ import autoTable from "jspdf-autotable";
 import { IconDownload } from "@tabler/icons-react";
 import { healthSortingFunction } from "../utils/health-sorting-function";
 
-const elements = testProjectUpdatesArray;
+const elements = weeklyUpdates[0].projectUpdates;
 
 const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
   maxSize: 50,
@@ -38,6 +38,7 @@ const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
           }
         >
           <circle cx="8" cy="8" r="8" />
+          {/* <path fill="#ffffff" d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0L7.1 4.995z"/> */}
         </svg>
       </div>
     );
