@@ -36,6 +36,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Yellow",
     overallStatus: "Yellow",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
     projectUpdateNotes:
       "UAT kickoff successful. Over 40 concurrent users in system without performance issue",
   },
@@ -49,6 +50,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Yellow",
     overallStatus: "Yellow",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "3",
@@ -60,6 +62,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Green",
     overallStatus: "Green",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "4",
@@ -71,6 +74,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "5",
@@ -82,6 +86,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "6",
@@ -93,6 +98,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
 
   {
@@ -105,6 +111,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Yellow",
     overallStatus: "Green",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "8",
@@ -116,6 +123,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Yellow",
     overallStatus: "Green",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "9",
@@ -127,6 +135,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "10",
@@ -138,6 +147,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "11",
@@ -149,6 +159,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Yellow",
     overallStatus: "Yellow",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "12",
@@ -160,6 +171,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "13",
@@ -171,6 +183,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Green",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
   {
     projectId: "14",
@@ -182,6 +195,7 @@ export const testProjectUpdatesArray: IProjectStatusUpdate[] = [
     escalationMetricStatus: "Red",
     overallStatus: "Red",
     dateOfLastMetricStatusUpdate: new Date(),
+    contact: "no-reply@usda.gov",
   },
 ];
 
@@ -194,7 +208,7 @@ export const metricKeyToDisplayNameMap: {
   staffingMetricStatus: "Staff",
 };
 
-const oneWeekAgo = new Date((+new Date()) - 1000 * 60 * 60 *24 * 7)
+const oneWeekAgo = new Date(+new Date() - 1000 * 60 * 60 * 24 * 7);
 export const testProjectTimelineRaw: {
   updateDate: Date;
   statusUpdates: IProjectStatusUpdate[];
@@ -212,6 +226,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
         projectUpdateNotes:
           "UAT kickoff successful. Over 40 concurrent users in system without performance issue",
       },
@@ -225,6 +240,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "3",
@@ -236,6 +252,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Green",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "4",
@@ -247,6 +264,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "5",
@@ -258,6 +276,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "6",
@@ -269,6 +288,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
 
       {
@@ -281,6 +301,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "8",
@@ -292,6 +313,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "9",
@@ -303,6 +325,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "10",
@@ -314,6 +337,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "11",
@@ -325,6 +349,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "12",
@@ -336,6 +361,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "13",
@@ -347,6 +373,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "14",
@@ -358,6 +385,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
     ],
   },
@@ -374,6 +402,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
         projectUpdateNotes:
           "UAT kickoff successful. Over 40 concurrent users in system without performance issue",
       },
@@ -387,6 +416,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "3",
@@ -398,6 +428,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Green",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "4",
@@ -409,6 +440,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "5",
@@ -420,6 +452,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "6",
@@ -431,6 +464,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
 
       {
@@ -443,6 +477,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "8",
@@ -454,6 +489,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "9",
@@ -465,6 +501,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "10",
@@ -476,6 +513,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "11",
@@ -487,6 +525,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Yellow",
         overallStatus: "Yellow",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "12",
@@ -498,6 +537,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "13",
@@ -509,6 +549,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Green",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
       {
         projectId: "14",
@@ -520,6 +561,7 @@ export const testProjectTimelineRaw: {
         escalationMetricStatus: "Red",
         overallStatus: "Red",
         dateOfLastMetricStatusUpdate: new Date(),
+        contact: "no-reply@usda.gov",
       },
     ],
   },
@@ -537,11 +579,11 @@ export const projectStatusOverTime: IProjectStatusOverTime[] =
     dateOfUpdate: +rawData.updateDate,
     ...rawData.statusUpdates.reduce<IStatusCounts>(
       (prev, current) => {
-        prev[current.overallStatus]++
-        prev.total++
+        prev[current.overallStatus]++;
+        prev.total++;
 
-        return prev
+        return prev;
       },
-      {...defaultCounts}
+      { ...defaultCounts }
     ),
   }));

@@ -15,6 +15,7 @@ export interface IProjectStatusUpdate {
   dateOfLastMetricStatusUpdate: Date;
 
   projectUpdateNotes?: string
+  contact: string
 }
 
 export type ISubMetricsLiteral = keyof Pick<

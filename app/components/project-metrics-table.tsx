@@ -33,7 +33,9 @@ const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
           height="16"
           viewBox="0 0 16 16"
           xmlns="http://www.w3.org/2000/svg"
-          fill={colorToHexCodeMap[cell.getValue<string>() as IMetricStatusLiteral]}
+          fill={
+            colorToHexCodeMap[cell.getValue<string>() as IMetricStatusLiteral]
+          }
         >
           <circle cx="8" cy="8" r="8" />
         </svg>
@@ -67,7 +69,9 @@ export default function ProjectMetricsTable() {
                 viewBox="0 0 16 16"
                 xmlns="http://www.w3.org/2000/svg"
                 fill={
-                  colorToHexCodeMap[cell.getValue<string>() as IMetricStatusLiteral]
+                  colorToHexCodeMap[
+                    cell.getValue<string>() as IMetricStatusLiteral
+                  ]
                 }
               >
                 <circle cx="8" cy="8" r="8" />
@@ -108,6 +112,18 @@ export default function ProjectMetricsTable() {
       {
         accessorKey: "programName",
         header: "Program",
+      },
+      {
+        accessorKey: "contact",
+        header: "Primary Contact",
+        enableSorting: false,
+        enableColumnActions: false,
+        enableClickToCopy: true,
+        Cell: ({ cell }) => (
+          // <a href={`mailto:${cell.getValue<string>()}`}>
+            <>{cell.getValue<string>()}</>
+          // </a>
+        ),
       },
     ],
     []
@@ -159,7 +175,7 @@ export default function ProjectMetricsTable() {
   });
 
   /** This needs a refactor before going into the non-mockup stage
-   * Right now the order of rendering is determined by Object.values, but we may need to 
+   * Right now the order of rendering is determined by Object.values, but we may need to
    * specify it manually because the keys aren't always guarnated. One of them is optional
    */
   const handleExportRows = (rows: MRT_Row<IProjectStatusUpdate>[]) => {
@@ -171,12 +187,14 @@ export default function ProjectMetricsTable() {
       pdfRowData = { ...row.original };
       //@ts-ignore
       delete pdfRowData.projectId;
-      
-      program = pdfRowData.programName
+
+      program = pdfRowData.programName;
       //@ts-ignore
       delete pdfRowData.programName;
       delete pdfRowData.projectUpdateNotes;
-      pdfRowData.programName = program
+      //@ts-ignore
+      delete pdfRowData.contact;
+      pdfRowData.programName = program;
 
       //@ts-ignore
       pdfRowData.dateOfLastMetricStatusUpdate =
