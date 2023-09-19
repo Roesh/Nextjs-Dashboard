@@ -16,6 +16,7 @@ import {
   ColProps,
   Collapse,
   Button,
+  Card,
 } from "@mantine/core";
 import { IProjectStatusUpdate } from "./interfaces/project-status-update.interface";
 import ProjectMetricsTable from "./components/project-metrics-table";
@@ -159,6 +160,7 @@ export default function Home() {
             <h1>{dashboardName}</h1>
             <Grid style={{ display: "flex" }}>
               <Grid.Col span={12} md={6} style={{paddingBottom: '30px'}}>
+                  <Card style={{height: '100%'}}>
                 <Box sx={{ display: "flex" }}>
                   <h2>Program health breakdown</h2>
                   <DateInput
@@ -169,13 +171,17 @@ export default function Home() {
                   />
                 </Box>
                 <BarGraphBreakdown />
+                </Card>
               </Grid.Col>
               <Grid.Col span={12} md={6} style={{ display: "flex" }}>
+              <Card>
                 <Box mx="auto">
                   <h2>Projects by overall health</h2>
                   <RadialMetricsTable />
                 </Box>
+                </Card>
               </Grid.Col>
+              
             </Grid>
             <div style={{ marginTop: "1rem" }}>
               <Button onClick={toggle}>View Weekly Update</Button>

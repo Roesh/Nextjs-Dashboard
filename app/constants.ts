@@ -434,7 +434,6 @@ weeklyUpdates.forEach((update, index) => {
 
 })
 
-console.debug(weeklyUpdates, "weedupd")
 const defaultCounts: IStatusCounts = {
   Green: 0,
   Yellow: 0,
