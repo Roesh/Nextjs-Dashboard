@@ -19,10 +19,10 @@ import {
   Card,
 } from "@mantine/core";
 import { IProjectStatusUpdate } from "./interfaces/project-status-update.interface";
-import ProjectMetricsTable from "./components/project-metrics-table";
+import {ProjectMetricsTable} from "./components/project-metrics-table";
 import { useState } from "react";
 import RadialMetricsTable from "./components/radial-metrics-breakdown";
-import BarGraphBreakdown from "./components/bar-graph-breakdown";
+import {BarGraphBreakdown} from "./components/bar-graph-breakdown";
 import { DateInput } from "@mantine/dates";
 import {
   grayHexCode,
@@ -43,6 +43,7 @@ import {
 } from "recharts";
 import { data } from "autoprefixer";
 import { HealthOverTimeGraph } from "./components/health-over-time-graph";
+import { KudosAndUpdates } from "./components/kudos-and-updates";
 
 function SafeHydrate({ children }: any) {
   return (
@@ -70,6 +71,7 @@ export default function Home() {
   const kudos = currentWeeklyUpdate.kudos;
 
   const [statusUpdatesOpened, { toggle }] = useDisclosure(false);
+  const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure(true);
 
   const [currentPage, setCurrentPage] = useState<pages>(
     "EAS Projects Dashboard"
@@ -157,78 +159,74 @@ export default function Home() {
       >
         {currentPage === "EAS Projects Dashboard" && (
           <>
-            <h1>{dashboardName}</h1>
-            <Grid style={{ display: "flex" }}>
-              <Grid.Col span={12} md={6} style={{paddingBottom: '30px'}}>
-                  <Card style={{height: '100%'}}>
-                <Box sx={{ display: "flex" }}>
-                  <h2>Program health breakdown</h2>
-                  <DateInput
-                    ml="auto"
-                    valueFormat="YYYY MMM DD"
-                    label="Dashboard Date"
-                    placeholder="Latest Data before this date"
-                  />
-                </Box>
-                <BarGraphBreakdown />
+            <Box mb={'sm'} style={{display: 'flex', alignItems: 'center'}}>
+              <h1 style={{ marginBottom: "5px", marginTop: 0 }}>
+                {dashboardName}
+              </h1>
+              <DateInput
+                ml="auto"
+                valueFormat="YYYY MMM DD"
+                label="Dashboard Date"
+                placeholder="Latest Data before this date"
+              />
+            </Box>
+            <Grid>
+              <Grid.Col span={12} md={4} style={{ display: "block" }}>
+                <Card style={{ height: "100%" }} shadow="lg" mx="auto">
+                  <Box sx={{ display: "flex" }}>
+                    <h2 style={{marginTop: 0}}>Program health</h2>
+                  </Box>
+                  <BarGraphBreakdown weeklyUpdate={weeklyUpdates[0]} />
                 </Card>
               </Grid.Col>
-              <Grid.Col span={12} md={6} style={{ display: "flex" }}>
-              <Card>
-                <Box mx="auto">
-                  <h2>Projects by overall health</h2>
-                  <RadialMetricsTable />
-                </Box>
+              <Grid.Col span={12} md={4}>
+                <Card style={{ display: "flex", height: '100%' }} shadow="lg" mx="auto">
+                  <Box mx="auto">
+                    <h2 style={{marginTop: 0}}>Projects by overall health</h2>
+                    <RadialMetricsTable weeklyUpdate={weeklyUpdates[0]}/>
+                  </Box>
                 </Card>
               </Grid.Col>
-              
+              <Grid.Col span={12} md={4}>
+                <Card style={{ display: "flex", height: '100%' }} shadow="lg" mx="auto">
+                  <KudosAndUpdates weeklyUpdate={weeklyUpdates[0]} />
+                </Card>
+              </Grid.Col>
             </Grid>
-            <div style={{ marginTop: "1rem" }}>
-              <Button onClick={toggle}>View Weekly Update</Button>
-              <Collapse in={statusUpdatesOpened}>
-                <Grid mt="md">
-                  <Grid.Col span={12} md={6} xl={4}>
-                    <Blockquote
-                      color="green"
-                      style={{ border: `2px solid ${greenHexCode}` }}
-                    >
-                      <b>Kudos received</b>
-                      <br />
-                      Conexus successfully did a release of Example project on
-                      9/11/2023 <br />
-                      Whitney Hubbard, performed xyz for tracking projections
-                      for app development business line
-                    </Blockquote>
-                  </Grid.Col>
-                  {projectStatuses
-                    .filter(
-                      (statusUpdate) =>
-                        statusUpdate.projectUpdateNotes !== undefined
-                    )
-                    .map((statusUpdate) => (
-                      <Grid.Col
-                        key={statusUpdate.projectId}
-                        span={12}
-                        md={6}
-                        xl={4}
-                      >
-                        <Blockquote
-                          style={{ border: `2px solid ${grayHexCode}` }}
+
+            <Card style={{ marginTop: "1rem" }} shadow="lg">
+              <div>
+                <Collapse in={statusUpdatesOpened}>
+                  <Grid mt="md">
+                    
+                    {projectStatuses
+                      .filter(
+                        (statusUpdate) =>
+                          statusUpdate.projectUpdateNotes !== undefined
+                      )
+                      .map((statusUpdate) => (
+                        <Grid.Col
+                          key={statusUpdate.projectId}
+                          span={12}
+                          md={6}
+                          xl={4}
                         >
-                          <b>{statusUpdate.projectName}</b> (
-                          {statusUpdate.programName})
-                          <br />
-                          {statusUpdate.projectUpdateNotes}
-                        </Blockquote>
-                      </Grid.Col>
-                    ))}
-                </Grid>
-              </Collapse>
-            </div>
-            <div style={{ marginTop: "3rem" }}>
-              <h2>Metrics Breakdown</h2>
-              <ProjectMetricsTable />
-            </div>
+                          <Blockquote
+                            style={{ border: `2px solid ${grayHexCode}` }}
+                          >
+                            <b>{statusUpdate.projectName}</b> (
+                            {statusUpdate.programName})
+                            <br />
+                            {statusUpdate.projectUpdateNotes}
+                          </Blockquote>
+                        </Grid.Col>
+                      ))}
+                  </Grid>
+                </Collapse>
+              </div>
+              <h2 style={{marginTop: 0}}>Metrics Breakdown</h2>
+              <ProjectMetricsTable weeklyUpdate={weeklyUpdates[0]} />
+            </Card>
           </>
         )}
         {currentPage === "Project Health Timeline" && <HealthOverTimeGraph />}

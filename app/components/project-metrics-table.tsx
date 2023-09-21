@@ -15,6 +15,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { IconDownload } from "@tabler/icons-react";
 import { healthSortingFunction } from "../utils/health-sorting-function";
+import { IWeeklyUpdate } from "../interfaces/weekly-update.interface";
 
 const elements = weeklyUpdates[0].projectUpdates;
 
@@ -45,8 +46,10 @@ const healthColumnOptions: Partial<MRT_ColumnDef<IProjectStatusUpdate>> = {
   },
 };
 
-export default function ProjectMetricsTable() {
-  const data = useMemo(() => elements, []);
+export const ProjectMetricsTable: React.FC<{
+  weeklyUpdate: IWeeklyUpdate;
+}> = ({weeklyUpdate}) => {
+  const data = useMemo(() => weeklyUpdate.projectUpdates, [weeklyUpdate]);
 
   const columns = useMemo<MRT_ColumnDef<IProjectStatusUpdate>[]>(
     () => [

@@ -404,17 +404,30 @@ export const testProjectTimelineRaw: {
 export const weeklyUpdates: IWeeklyUpdate[] = [
   {
     dateOfUpdate: new Date('2023/09/01'),
-    kudos: "test kudos",
+    kudos: [{
+      kudosTitle: "Success Story - Budget Line of Business Migration",
+      kudosText: `Update on the Budget Line of Business (27 partner agency users) migration - we're in Production!  
+
+      A successful migration begins months in advance, ending with several days of long hours to achieve Production status.  From a Complex Solutions perspective, we continue to have the right people from various teams (across OMB and DISC) assisting us every step of the way.  Even through another migration weekend, we knew we always had the ‘phone a friend’ option if we needed it.  With everyone’s willingness to support the success of the MAX transition, we have yet again achieved a monumental challenge.
+      
+      A lot, if not all of us, may feel that it is merely part of our job to remain at the table; meaning, 'what is there to be surprised at?'  It really is the acknowledgement of true teamwork and how amazing that feels when it comes time to celebrate our accomplishments.  We’ve had challenging moments along the way, but we got through them with a great sense of humor - Brady Bunch video calls with so many coffee mugs, cats/dogs, and fun t-shirts on display.
+      
+      I’m sure that there are others not on this thread that have contributed to the cause; the group think that happens across the teams.  Please forward this note of thanks!  We will figure out a way to celebrate this initiative shortly after the November migration is complete, a time when we can slow down and really have some fun.
+      
+      Seriously though, it’s a pleasure to have you all at the table.  I’m not saying this because there’s more work to come!  Truly, it’s about the teamwork.
+      
+      Enjoy a fabulous week ahead,
+      `}],
     projectUpdates: data_09_01_2023,
   },
   {
     dateOfUpdate: new Date('2023/09/08'),
-    kudos: "test kudos",
+    kudos: [],
     projectUpdates: data_09_08_2023,
   },
   {
     dateOfUpdate: new Date('2023/09/15'),
-    kudos: "test kudos",
+    kudos: [],
     projectUpdates: data_09_15_2023,
   },  
 ];

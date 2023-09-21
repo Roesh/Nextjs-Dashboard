@@ -9,11 +9,11 @@ export const data_09_01_2023: IProjectStatusUpdate[] = [
       staffingMetricStatus: "Green",
       modernizationMetricStatus: "Green",
       escalationMetricStatus: "Yellow",
-      overallStatus: "Yellow",
+      overallStatus: "Red",
       dateOfLastMetricStatusUpdate: new Date(),
       contact: "no-reply@usda.gov",
       projectUpdateNotes:
-        "UAT kickoff begins on 09/11. Environment is ready for UAT users, no issues anticipated",
+        "asdasd UAT kickoff begins on 09/11. Environment is ready for UAT users, no issues anticipated",
     },
     {
       projectId: "2",

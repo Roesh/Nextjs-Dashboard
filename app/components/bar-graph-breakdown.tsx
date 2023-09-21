@@ -26,6 +26,7 @@ import {
 import { useReducer } from "react";
 import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
 import { Box } from "@mantine/core";
+import { IWeeklyUpdate } from "../interfaces/weekly-update.interface";
 
 const CustomizedLabel = (props: any) => {
   console.log(props, "ppz");
@@ -77,8 +78,10 @@ const CustomizedLabel = (props: any) => {
   );
 };
 
-export default function BarGraphBreakdown() {
-  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdates[0].projectUpdates;
+export const BarGraphBreakdown: React.FC<{
+  weeklyUpdate: IWeeklyUpdate;
+}> = ({weeklyUpdate}) => {
+  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdate.projectUpdates;
 
   const emptyObject: any = {};
 

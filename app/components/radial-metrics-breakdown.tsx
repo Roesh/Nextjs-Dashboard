@@ -24,7 +24,8 @@ import {
 } from "../constants";
 import { useReducer } from "react";
 import { IMetricStatusLiteral } from "../interfaces/metric-status.interface";
-import { Box } from "@mantine/core";
+import { Box, Grid, ScrollArea } from "@mantine/core";
+import { IWeeklyUpdate } from "../interfaces/weekly-update.interface";
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = (props: any) => {
@@ -60,8 +61,12 @@ const renderCustomizedLabel = (props: any) => {
   );
 };
 
-export default function RadialMetricsTable() {
-  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdates[0].projectUpdates;
+export default function RadialMetricsTable({
+  weeklyUpdate,
+}: {
+  weeklyUpdate: IWeeklyUpdate;
+}) {
+  const projectStatuses: IProjectStatusUpdate[] = weeklyUpdate.projectUpdates;
 
   // const displayData: any[] = []
   const initialData: { [key in IMetricStatusLiteral]: number } = {
@@ -137,89 +142,56 @@ export default function RadialMetricsTable() {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box sx={{ fontSize: "3rem" }}>
-        <div>
-          <span style={{ color: greenHexCode }}>{initialData.Green}</span>{" "}
-          <span style={{ color: greenHexCode, fontSize: "1.8rem" }}>Green</span>
-        </div>
-        {initialData.Yellow > 0 && (
-          <div>
-            <span style={{ color: yellowHexCodeText }}>
-              {initialData.Yellow}
-            </span>{" "}
-            <span style={{ color: yellowHexCodeText, fontSize: "1.8rem" }}>
-              Yellow
-            </span>
-          </div>
-        )}
-        {initialData.Red > 0 && (
-          <div>
-            <span style={{ color: redHexCode }}>{initialData.Red}</span>{" "}
-            <span style={{ color: redHexCode, fontSize: "1.8rem" }}>
-              Off track
-            </span>
-          </div>
-        )}
-      </Box>
-      <PieChart style={{ marginInline: "20px" }} width={350} height={350}>
-        <Tooltip />
-        <Pie
-          data={displayData}
-          dataKey="value"
-          cx="125"
-          cy="125"
-          innerRadius={70}
-          outerRadius={110}
-          startAngle={45}
-          endAngle={405}
-          legendType="circle"
-        >
-          <LabelList content={renderCustomizedLabel} position={"outside"} />
-          {displayData.map((entry, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={
-                colorToHexCodeMap[(entry.name as IMetricStatusLiteral) ?? "Yellow"]
-              }
-            />
-          ))}
-        </Pie>
-        <text
-          x={125}
-          y={125}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize={36}
-          fill={grayTextHexCode}
-        >
-          {projectStatuses.length} Total
-        </text>
-        {Object.keys(subMetricsstatusBreakdown).map((key, i) => {
-          // Calculate angle for this index
-          const angle = (i / 4) * 145 * (Math.PI / 180); // Radians
-
-          // Get x & y for this angle
-          const x = 125 + Math.cos(angle) * 175;
-          const y = 125 + Math.sin(angle) * 175;
-
-          return (
-            <>
+    <Box sx={{ display: "flex", maxWidth: "100%" }}>
+      <Grid>
+        <Grid.Col sm={3}>
+          <Box sx={{ fontSize: "2rem", minWidth: "110px" }}>
+            <div>
+              <span style={{ color: greenHexCode }}>{initialData.Green}</span>{" "}
+              <span style={{ color: greenHexCode, fontSize: "1.5rem" }}>
+                Green
+              </span>
+            </div>
+            {initialData.Yellow > 0 && (
+              <div>
+                <span style={{ color: yellowHexCodeText }}>
+                  {initialData.Yellow}
+                </span>{" "}
+                <span style={{ color: yellowHexCodeText, fontSize: "1.5rem" }}>
+                  Yellow
+                </span>
+              </div>
+            )}
+            {initialData.Red > 0 && (
+              <div>
+                <span style={{ color: redHexCode }}>{initialData.Red}</span>{" "}
+                <span style={{ color: redHexCode, fontSize: "1.5rem" }}>
+                  Red
+                </span>
+              </div>
+            )}
+          </Box>
+        </Grid.Col>
+        <Grid.Col sm={9}>
+          <ScrollArea type="auto" h={350}>
+            <PieChart style={{ marginInline: "20px" }} width={330} height={325}>
+              <Tooltip />
               <Pie
-                cx={x}
-                cy={y}
-                data={
-                  subMetricsstatusBreakdownDisplayData[
-                    key as keyof typeof subMetricsstatusBreakdown
-                  ]
-                }
+                data={displayData}
                 dataKey="value"
-                innerRadius={30}
-                outerRadius={45}
+                cx="125"
+                cy="125"
+                innerRadius={65}
+                outerRadius={100}
+                startAngle={45}
+                endAngle={405}
+                legendType="circle"
               >
-                {subMetricsstatusBreakdownDisplayData[
-                  key as keyof typeof subMetricsstatusBreakdown
-                ].map((entry, index) => (
+                <LabelList
+                  content={renderCustomizedLabel}
+                  position={"outside"}
+                />
+                {displayData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={
@@ -231,23 +203,71 @@ export default function RadialMetricsTable() {
                 ))}
               </Pie>
               <text
-                x={x + 4}
-                y={y + 4}
+                x={125}
+                y={125}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fontSize={16}
+                fontSize={28}
                 fill={grayTextHexCode}
               >
-                {
-                  metricKeyToDisplayNameMap[
-                    key as keyof typeof subMetricsstatusBreakdown
-                  ]
-                }
+                {projectStatuses.length} Total
               </text>
-            </>
-          );
-        })}
-      </PieChart>
+              {Object.keys(subMetricsstatusBreakdown).map((key, i) => {
+                // Calculate angle for this index
+                const angle = (i / 4) * 145 * (Math.PI / 180); // Radians
+
+                // Get x & y for this angle
+                const x = 125 + Math.cos(angle) * 150;
+                const y = 125 + Math.sin(angle) * 150;
+
+                return (
+                  <>
+                    <Pie
+                      cx={x}
+                      cy={y}
+                      data={
+                        subMetricsstatusBreakdownDisplayData[
+                          key as keyof typeof subMetricsstatusBreakdown
+                        ]
+                      }
+                      dataKey="value"
+                      innerRadius={30}
+                      outerRadius={45}
+                    >
+                      {subMetricsstatusBreakdownDisplayData[
+                        key as keyof typeof subMetricsstatusBreakdown
+                      ].map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={
+                            colorToHexCodeMap[
+                              (entry.name as IMetricStatusLiteral) ?? "Yellow"
+                            ]
+                          }
+                        />
+                      ))}
+                    </Pie>
+                    <text
+                      x={x + 4}
+                      y={y + 4}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontSize={16}
+                      fill={grayTextHexCode}
+                    >
+                      {
+                        metricKeyToDisplayNameMap[
+                          key as keyof typeof subMetricsstatusBreakdown
+                        ]
+                      }
+                    </text>
+                  </>
+                );
+              })}
+            </PieChart>
+          </ScrollArea>
+        </Grid.Col>
+      </Grid>
     </Box>
   );
 }
