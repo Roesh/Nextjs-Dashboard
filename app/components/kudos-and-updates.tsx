@@ -25,8 +25,10 @@ export const KudosAndUpdates: React.FC<{
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title={selectedKudos?.kudosTitle} size="70%">
-        <Textarea autosize>{selectedKudos?.kudosText}</Textarea>
+      <Modal opened={opened} onClose={close} title={<h2>{selectedKudos?.kudosTitle}</h2>} size="70%">
+        <div style={{minHeight: '50vh'}}>
+        <Textarea styles={{input: {border: 'none'}}} size="xl" autosize value={selectedKudos?.kudosText}></Textarea>
+        </div>
       </Modal>
       <Box h={"100%"} w={"100%"}>
         <h2 style={{ marginTop: 0 }}>Kudos and Success Stories</h2>{" "}
