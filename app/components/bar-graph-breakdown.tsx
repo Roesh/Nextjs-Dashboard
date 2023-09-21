@@ -80,7 +80,7 @@ const CustomizedLabel = (props: any) => {
 
 export const BarGraphBreakdown: React.FC<{
   weeklyUpdate: IWeeklyUpdate;
-}> = ({weeklyUpdate}) => {
+}> = ({ weeklyUpdate }) => {
   const projectStatuses: IProjectStatusUpdate[] = weeklyUpdate.projectUpdates;
 
   const emptyObject: any = {};
@@ -126,9 +126,19 @@ export const BarGraphBreakdown: React.FC<{
     };
   });
 
+  const max = displayData.reduce((prev, current) => {
+    console.log(prev, 'redl')
+    if (current.total > prev) {
+      return current.total
+    }else {
+      return prev
+    }
+  }, 0)
+
+  console.log(max, "max io")
   return (
     // https://github.com/recharts/recharts/issues/1618
-    <ResponsiveContainer width="100%"  height={250}>
+    <ResponsiveContainer width="100%" height={200}>
       <BarChart
         layout={"horizontal"}
         data={displayData}
@@ -137,7 +147,7 @@ export const BarGraphBreakdown: React.FC<{
         }}
       >
         <Tooltip />
-        <YAxis type="number" hide />
+        <YAxis type="number" hide domain={[0, max]} />
         <XAxis type="category" dataKey="name" angle={-45} textAnchor="end" />
         <Bar dataKey="Green" stackId="a" fill={greenHexCode}>
           {/* <LabelList

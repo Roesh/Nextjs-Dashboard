@@ -66,6 +66,7 @@ export default function RadialMetricsTable({
 }: {
   weeklyUpdate: IWeeklyUpdate;
 }) {
+  const pie1Cx = 100
   const projectStatuses: IProjectStatusUpdate[] = weeklyUpdate.projectUpdates;
 
   // const displayData: any[] = []
@@ -144,10 +145,101 @@ export default function RadialMetricsTable({
   return (
     <Box style={{ display: "flex", flexDirection: "column" }}>
       <h2 style={{ marginTop: 0 }}>Projects by overall health</h2>
+
+      <PieChart style={{ marginInline: "20px" }} width={400} height={250}>
+        <Tooltip />
+        <Pie
+          data={displayData}
+          dataKey="value"
+          cx={pie1Cx}
+          cy="125"
+          innerRadius={65}
+          outerRadius={100}
+          startAngle={45}
+          endAngle={405}
+          legendType="circle"
+        >
+          <LabelList content={renderCustomizedLabel} position={"outside"} />
+          {displayData.map((entry, index) => (
+            <Cell
+              key={`cell-${index}`}
+              fill={
+                colorToHexCodeMap[
+                (entry.name as IMetricStatusLiteral) ?? "Yellow"
+                ]
+              }
+            />
+          ))}
+        </Pie>
+        <text
+          x={pie1Cx}
+          y={125}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize={28}
+          fill={grayTextHexCode}
+        >
+          {projectStatuses.length} Total
+        </text>
+        {Object.keys(subMetricsstatusBreakdown).map((key, i) => {
+          // Calculate angle for this index
+          const angle = (i / 4) * 145 * (Math.PI / 180); // Radians
+
+          // Get x & y for this angle
+          let x = pie1Cx + Math.cos(angle) * 150;
+          let y = 125 + Math.sin(angle) * 150;
+
+          // Overriding circle:
+          x = pie1Cx + 170 + ((i % 2 === 0) ? -25 : 75)
+          y = 125 + ((i < 2) ? -50 : 50)
+          return (
+            <>
+              <Pie
+                cx={x}
+                cy={y}
+                data={
+                  subMetricsstatusBreakdownDisplayData[
+                  key as keyof typeof subMetricsstatusBreakdown
+                  ]
+                }
+                dataKey="value"
+                innerRadius={30}
+                outerRadius={45}
+              >
+                {subMetricsstatusBreakdownDisplayData[
+                  key as keyof typeof subMetricsstatusBreakdown
+                ].map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={
+                      colorToHexCodeMap[
+                      (entry.name as IMetricStatusLiteral) ?? "Yellow"
+                      ]
+                    }
+                  />
+                ))}
+              </Pie>
+              <text
+                x={x + 4}
+                y={y + 4}
+                textAnchor="middle"
+                dominantBaseline="central"
+                fontSize={16}
+                fill={grayTextHexCode}
+              >
+                {
+                  metricKeyToDisplayNameMap[
+                  key as keyof typeof subMetricsstatusBreakdown
+                  ]
+                }
+              </text>
+            </>
+          );
+        })}
+      </PieChart>
       <Box
         sx={{
           fontSize: "2rem",
-          minWidth: "110px",
           display: "flex",
           justifyContent: "space-around",
         }}
@@ -173,97 +265,6 @@ export default function RadialMetricsTable({
           </div>
         )}
       </Box>
-      <PieChart style={{ marginInline: "20px" }} width={400} height={325}>
-        <Tooltip />
-        <Pie
-          data={displayData}
-          dataKey="value"
-          cx="110"
-          cy="125"
-          innerRadius={65}
-          outerRadius={100}
-          startAngle={45}
-          endAngle={405}
-          legendType="circle"
-        >
-          <LabelList content={renderCustomizedLabel} position={"outside"} />
-          {displayData.map((entry, index) => (
-            <Cell
-              key={`cell-${index}`}
-              fill={
-                colorToHexCodeMap[
-                  (entry.name as IMetricStatusLiteral) ?? "Yellow"
-                ]
-              }
-            />
-          ))}
-        </Pie>
-        <text
-          x={110}
-          y={125}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize={28}
-          fill={grayTextHexCode}
-        >
-          {projectStatuses.length} Total
-        </text>
-        {Object.keys(subMetricsstatusBreakdown).map((key, i) => {
-          // Calculate angle for this index
-          const angle = (i / 4) * 145 * (Math.PI / 180); // Radians
-
-          // Get x & y for this angle
-          let x = 125 + Math.cos(angle) * 150;
-          let y = 125 + Math.sin(angle) * 150;
-
-          // Overriding circle:
-          x = 125 + 160 + ( (i % 2 === 0) ? -25 : 75 )
-          y = 125 + ((i < 2) ? -50 : 50)
-          return (
-            <>
-              <Pie
-                cx={x}
-                cy={y}
-                data={
-                  subMetricsstatusBreakdownDisplayData[
-                    key as keyof typeof subMetricsstatusBreakdown
-                  ]
-                }
-                dataKey="value"
-                innerRadius={30}
-                outerRadius={45}
-              >
-                {subMetricsstatusBreakdownDisplayData[
-                  key as keyof typeof subMetricsstatusBreakdown
-                ].map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={
-                      colorToHexCodeMap[
-                        (entry.name as IMetricStatusLiteral) ?? "Yellow"
-                      ]
-                    }
-                  />
-                ))}
-              </Pie>
-              <text
-                x={x + 4}
-                y={y + 4}
-                textAnchor="middle"
-                dominantBaseline="central"
-                fontSize={16}
-                fill={grayTextHexCode}
-              >
-                {
-                  metricKeyToDisplayNameMap[
-                    key as keyof typeof subMetricsstatusBreakdown
-                  ]
-                }
-              </text>
-            </>
-          );
-        })}
-      </PieChart>
     </Box>
   );
 }

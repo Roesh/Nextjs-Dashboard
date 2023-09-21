@@ -53,7 +53,7 @@ function SafeHydrate({ children }: any) {
   );
 }
 
-type pages = "EAS Projects Dashboard" | "Project Health Timeline";
+type pages = "EAS Weekly Health Dashboard" | "Project Health Timeline";
 
 /**
  * Escalation metric status:
@@ -63,7 +63,7 @@ type pages = "EAS Projects Dashboard" | "Project Health Timeline";
 export default function Home() {
   const theme = useMantineTheme();
   const [opened, setOpened] = useState(false);
-  const [dashboardName, setDashboardName] = useState("EAS Projects Dashboard");
+  const [dashboardName, setDashboardName] = useState("EAS Weekly Health Dashboard");
 
   const currentWeeklyUpdate = weeklyUpdates[0];
   const projectStatuses: IProjectStatusUpdate[] =
@@ -74,7 +74,7 @@ export default function Home() {
   const [navbarOpened, { toggle: toggleNavbar }] = useDisclosure(true);
 
   const [currentPage, setCurrentPage] = useState<pages>(
-    "EAS Projects Dashboard"
+    "EAS Weekly Health Dashboard"
   );
 
   return (
@@ -85,7 +85,7 @@ export default function Home() {
             background:
               theme.colorScheme === "dark"
                 ? theme.colors.dark[8]
-                : theme.colors.gray[0],
+                : theme.colors.gray[2],
           },
         }}
         navbarOffsetBreakpoint="sm"
@@ -101,9 +101,9 @@ export default function Home() {
             <Button
               variant="outline"
               color="green"
-              onClick={() => setCurrentPage("EAS Projects Dashboard")}
+              onClick={() => setCurrentPage("EAS Weekly Health Dashboard")}
             >
-              EAS Projects Dashboard
+              EAS Weekly Health Dashboard
             </Button>
             <Text mt="lg">Timelines</Text>
             <Button
@@ -157,17 +157,16 @@ export default function Home() {
           </Header>
         }
       >
-        {currentPage === "EAS Projects Dashboard" && (
+        {currentPage === "EAS Weekly Health Dashboard" && (
           <>
             <Box mb={"sm"} style={{ display: "flex", alignItems: "center" }}>
-              <h1 style={{ marginBottom: "5px", marginTop: 0 }}>
+              <h2 style={{ marginBottom: "5px", marginTop: 0 }}>
                 {dashboardName}
-              </h1>
+              </h2>
               <DateInput
                 ml="auto"
                 valueFormat="YYYY MMM DD"
-                label="Dashboard Date"
-                placeholder="Latest Data before this date"
+                placeholder="Week of Update"
               />
             </Box>
             <Grid>
@@ -206,7 +205,6 @@ export default function Home() {
                   shadow="lg"
                   mx="auto"
                 >
-                  ]
                   <RadialMetricsTable weeklyUpdate={weeklyUpdates[0]} />
                 </Card>
               </Grid.Col>

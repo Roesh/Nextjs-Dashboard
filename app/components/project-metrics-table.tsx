@@ -133,13 +133,20 @@ export const ProjectMetricsTable: React.FC<{
     []
   );
 
-  const table = useMantineReactTable({
+  const table = useMantineReactTable<IProjectStatusUpdate>({
     columns,
     data,
     initialState: {
       columnVisibility: {
         projectId: false,
       },
+      sorting: [
+        {
+          id: "overallStatus", 
+          desc: false,
+        },
+      ],
+      density: 'xs'
     },
     enableRowSelection: true, //enable some features
     enableGlobalFilter: false, //turn off a feature
@@ -153,7 +160,7 @@ export const ProjectMetricsTable: React.FC<{
           flexWrap: "wrap",
         }}
       >        
-        <h2 style={{marginTop: 0, marginBottom: 0}}>Metrics Breakdown</h2>
+        <h2 style={{marginTop: 0, marginBottom: 0}}>Project Metrics</h2>
         <Button
           disabled={table.getPrePaginationRowModel().rows.length === 0}
           //export all rows, including from the next page, (still respects filtering and sorting)
@@ -162,7 +169,7 @@ export const ProjectMetricsTable: React.FC<{
           }
           leftIcon={<IconDownload />}
           variant="filled"
-          style={{marginLeft: 'auto'}}
+          style={{display: 'flex', marginLeft: 'auto'}}
         >
           Export All Rows
         </Button>
