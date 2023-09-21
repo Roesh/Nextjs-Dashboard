@@ -417,7 +417,14 @@ export const weeklyUpdates: IWeeklyUpdate[] = [
       Seriously though, it’s a pleasure to have you all at the table.  I’m not saying this because there’s more work to come!  Truly, it’s about the teamwork.
       
       Enjoy a fabulous week ahead,
-      `}],
+      `},{
+        kudosTitle: "Kudos to Conexus for ICAM Launch",
+        kudosText: "Conexus successfully conducted a coordinated release of ICAM’s launch of Login.gov on 9/11/2023."
+      },
+      {
+        kudosTitle: "Kudos to Whitney Hubbard for tracking budget projections",
+        kudosText: "Whitney Hubbard, Business Management team for tracking projections for the application development business line. A $60M budget came in under 1%."
+      }],
     projectUpdates: data_09_01_2023,
   },
   {

@@ -40,12 +40,12 @@ const CustomizedLabel = (props: any) => {
     <g>
       <text
         x={x + width / 2}
-        y={y - 30}
+        y={y - 15}
         fill={grayTextHexCode}
         textAnchor="middle"
         dominantBaseline="middle"
       >
-        {breakdown.total} total
+        {breakdown.total}
       </text>
       {/* <text
         x={x - 20 + width / 2}

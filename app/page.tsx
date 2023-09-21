@@ -19,10 +19,10 @@ import {
   Card,
 } from "@mantine/core";
 import { IProjectStatusUpdate } from "./interfaces/project-status-update.interface";
-import {ProjectMetricsTable} from "./components/project-metrics-table";
+import { ProjectMetricsTable } from "./components/project-metrics-table";
 import { useState } from "react";
 import RadialMetricsTable from "./components/radial-metrics-breakdown";
-import {BarGraphBreakdown} from "./components/bar-graph-breakdown";
+import { BarGraphBreakdown } from "./components/bar-graph-breakdown";
 import { DateInput } from "@mantine/dates";
 import {
   grayHexCode,
@@ -159,7 +159,7 @@ export default function Home() {
       >
         {currentPage === "EAS Projects Dashboard" && (
           <>
-            <Box mb={'sm'} style={{display: 'flex', alignItems: 'center'}}>
+            <Box mb={"sm"} style={{ display: "flex", alignItems: "center" }}>
               <h1 style={{ marginBottom: "5px", marginTop: 0 }}>
                 {dashboardName}
               </h1>
@@ -172,24 +172,42 @@ export default function Home() {
             </Box>
             <Grid>
               <Grid.Col span={12} md={4} style={{ display: "block" }}>
-                <Card style={{ height: "100%" }} shadow="lg" mx="auto">
+                <Card
+                  style={{ height: "100%", maxHeight: "500px" }}
+                  shadow="lg"
+                  mx="auto"
+                >
                   <Box sx={{ display: "flex" }}>
-                    <h2 style={{marginTop: 0}}>Program health</h2>
+                    <h2 style={{ marginTop: 0 }}>Program health</h2>
                   </Box>
                   <BarGraphBreakdown weeklyUpdate={weeklyUpdates[0]} />
                 </Card>
               </Grid.Col>
               <Grid.Col span={12} md={4}>
-                <Card style={{ display: "flex", height: '100%' }} shadow="lg" mx="auto">
-                  <Box mx="auto">
-                    <h2 style={{marginTop: 0}}>Projects by overall health</h2>
-                    <RadialMetricsTable weeklyUpdate={weeklyUpdates[0]}/>
-                  </Box>
+                <Card
+                  style={{
+                    display: "flex",
+                    height: "100%",
+                    maxHeight: "500px",
+                  }}
+                  shadow="lg"
+                  mx="auto"
+                >
+                  <KudosAndUpdates weeklyUpdate={weeklyUpdates[0]} />
                 </Card>
               </Grid.Col>
               <Grid.Col span={12} md={4}>
-                <Card style={{ display: "flex", height: '100%' }} shadow="lg" mx="auto">
-                  <KudosAndUpdates weeklyUpdate={weeklyUpdates[0]} />
+                <Card
+                  style={{
+                    display: "flex",
+                    height: "100%",
+                    maxHeight: "500px",
+                  }}
+                  shadow="lg"
+                  mx="auto"
+                >
+                  ]
+                  <RadialMetricsTable weeklyUpdate={weeklyUpdates[0]} />
                 </Card>
               </Grid.Col>
             </Grid>
@@ -198,7 +216,6 @@ export default function Home() {
               <div>
                 <Collapse in={statusUpdatesOpened}>
                   <Grid mt="md">
-                    
                     {projectStatuses
                       .filter(
                         (statusUpdate) =>
@@ -224,7 +241,6 @@ export default function Home() {
                   </Grid>
                 </Collapse>
               </div>
-              <h2 style={{marginTop: 0}}>Metrics Breakdown</h2>
               <ProjectMetricsTable weeklyUpdate={weeklyUpdates[0]} />
             </Card>
           </>

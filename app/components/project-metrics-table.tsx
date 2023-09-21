@@ -145,13 +145,15 @@ export const ProjectMetricsTable: React.FC<{
     enableGlobalFilter: false, //turn off a feature
     renderTopToolbarCustomActions: ({ table }) => (
       <Box
-        sx={{
+        style={{
           display: "flex",
+          alignItems: 'center',
           gap: "16px",
           padding: "8px",
           flexWrap: "wrap",
         }}
-      >
+      >        
+        <h2 style={{marginTop: 0, marginBottom: 0}}>Metrics Breakdown</h2>
         <Button
           disabled={table.getPrePaginationRowModel().rows.length === 0}
           //export all rows, including from the next page, (still respects filtering and sorting)
@@ -160,6 +162,7 @@ export const ProjectMetricsTable: React.FC<{
           }
           leftIcon={<IconDownload />}
           variant="filled"
+          style={{marginLeft: 'auto'}}
         >
           Export All Rows
         </Button>
